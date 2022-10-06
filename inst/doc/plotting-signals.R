@@ -1,18 +1,14 @@
 ## ---- message=FALSE-----------------------------------------------------------
 library(covidcast)
 
-comb <- suppressMessages(
-  covidcast_signal(data_source = "indicator-combination",
-                   signal = "nmf_day_doc_fbc_fbs_ght",
-                   start_day = "2020-07-01", end_day = "2020-07-14")
-)
+comb <- covidcast_signal(data_source = "indicator-combination",
+                         signal = "nmf_day_doc_fbc_fbs_ght",
+                         start_day = "2020-07-01", end_day = "2020-07-14")
 summary(comb)
 
-inum <- suppressMessages(
-  covidcast_signal(data_source = "usa-facts",
-                   signal = "confirmed_7dav_incidence_num",
-                   start_day = "2020-07-01", end_day = "2020-07-14")
-)
+inum <- covidcast_signal(data_source = "usa-facts",
+                         signal = "confirmed_7dav_incidence_num",
+                         start_day = "2020-07-01", end_day = "2020-07-14")
 summary(inum)
 
 ## ---- include = FALSE---------------------------------------------------------
@@ -37,12 +33,10 @@ colors <- c("#D3D3D3", "#FFFFCC", "#FEDDA2", "#FDBB79", "#FD9950", "#EB7538",
 plot(inum, choro_col = colors, choro_params = list(breaks = breaks),
      title = "New COVID cases (7-day trailing average) on 2020-07-14")
 
-## -----------------------------------------------------------------------------
-cprop <- suppressMessages(
-  covidcast_signal(data_source = "usa-facts",
-                   signal = "confirmed_cumulative_prop",
-                   start_day = "2020-07-01", end_day = "2020-07-14")
-)
+## ---- message=FALSE-----------------------------------------------------------
+cprop <- covidcast_signal(data_source = "usa-facts",
+                          signal = "confirmed_cumulative_prop",
+                          start_day = "2020-07-01", end_day = "2020-07-14")
 
 breaks <- c(0, 1000)
 colors <- c("#D3D3D3", "#FFC0CB")
@@ -61,12 +55,10 @@ plot(inum, plot_type = "bubble",
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(fig.width = 10, fig.height = 6)
 
-## -----------------------------------------------------------------------------
-iprop <- suppressMessages(
-  covidcast_signal(data_source = "usa-facts",
-                   signal = "confirmed_7dav_incidence_prop",
-                   start_day = "2020-07-01", end_day = "2020-07-14")
-)
+## ---- message=FALSE-----------------------------------------------------------
+iprop <- covidcast_signal(data_source = "usa-facts",
+                          signal = "confirmed_7dav_incidence_prop",
+                          start_day = "2020-07-01", end_day = "2020-07-14")
 
 ## -----------------------------------------------------------------------------
 library(gridExtra)
@@ -88,8 +80,7 @@ grid.arrange(p1, p2, nrow = 1)
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(fig.width = 8, fig.height = 6)
 
-## -----------------------------------------------------------------------------
-suppressMessages({
+## ---- message=FALSE-----------------------------------------------------------
 comb_st <- covidcast_signal(data_source = "indicator-combination",
                                signal = "nmf_day_doc_fbc_fbs_ght",
                                start_day = "2020-04-15", end_day = "2020-07-01",
@@ -98,7 +89,6 @@ inum_st <- covidcast_signal(data_source = "usa-facts",
                                signal = "confirmed_7dav_incidence_num",
                                start_day = "2020-04-15", end_day = "2020-07-01",
                                geo_type = "state")
-})
 
 ## ---- message = FALSE---------------------------------------------------------
 library(dplyr)
@@ -110,7 +100,6 @@ plot(inum_st %>% filter(geo_value %in% states), plot_type = "line")
 ## ---- warning = FALSE---------------------------------------------------------
 library(ggplot2)
 
-suppressMessages({
 comb_md <- covidcast_signal(data_source = "indicator-combination",
                                signal = "nmf_day_doc_fbc_fbs_ght",
                                start_day = "2020-06-01", end_day = "2020-07-15",
@@ -119,7 +108,6 @@ inum_md <- covidcast_signal(data_source = "usa-facts",
                                signal = "confirmed_7dav_incidence_num",
                                start_day = "2020-06-01", end_day = "2020-07-15",
                                geo_values = name_to_fips("Miami-Dade"))
-})
 
 # Compute the ranges of the two signals
 range1 <- inum_md %>% select("value") %>% range

@@ -2,30 +2,24 @@
 library(covidcast)
 library(dplyr)
 
-cli <- suppressMessages(
-  covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
-                   start_day = "2020-05-01", end_day = "2020-05-07",
-                   geo_type = "county")
-)
+cli <- covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
+                        start_day = "2020-05-01", end_day = "2020-05-07",
+                        geo_type = "county")
 knitr::kable(head(cli))
 
 ## -----------------------------------------------------------------------------
 summary(cli)
 
-## -----------------------------------------------------------------------------
-cli <- suppressMessages(
-  covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
-                   start_day = "2020-05-01", end_day = "2020-05-07",
-                   geo_type = "state")
-)
+## ---- message=FALSE-----------------------------------------------------------
+cli <- covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
+                        start_day = "2020-05-01", end_day = "2020-05-07",
+                        geo_type = "state")
 knitr::kable(head(cli))
 
-## -----------------------------------------------------------------------------
-cli <- suppressMessages(
-  covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
-                   start_day = "2020-05-01", end_day = "2020-05-07",
-                   geo_type = "county", geo_value = "42003")
-)
+## ---- message=FALSE-----------------------------------------------------------
+cli <- covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
+                        start_day = "2020-05-01", end_day = "2020-05-07",
+                        geo_type = "county", geo_value = "42003")
 knitr::kable(head(cli))
 
 ## -----------------------------------------------------------------------------

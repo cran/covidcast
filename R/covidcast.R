@@ -29,21 +29,24 @@
 #'
 #' @section Getting started:
 #'
-#' We recommend browsing the vignettes, which includes numerous examples:
+#' We recommend browsing the vignettes, which include numerous examples:
 #' `browseVignettes(package = "covidcast")`.
 #'
 #' See also `covidcast_signal()` for details on how to obtain COVIDcast data as
 #' a data frame.
 #'
-#' @docType package
-#' @name covidcast
-NULL
+#' @references A. Reinhart et al., An open repository of real-time COVID-19
+#'   indicators. Proc. Natl. Acad. Sci. U.S.A. 118, e2111452118 (2021).
+#'   \doi{10.1073/pnas.2111452118}
+#'
+#' @keywords internal
+"_PACKAGE"
 
 # API base url
-COVIDCAST_BASE_URL <- 'https://api.covidcast.cmu.edu/epidata/api.php'
+COVIDCAST_BASE_URL <- 'https://api.covidcast.cmu.edu/epidata/'
 
 # Max rows returned by API
-MAX_RESULTS <- 3649
+MAX_RESULTS <- 1000000
 
 .onAttach <- function(libname, pkgname) {
   msg <- c("We encourage COVIDcast API users to register on our mailing list:",
@@ -70,7 +73,7 @@ MAX_RESULTS <- 3649
 #' population and other Census data.
 #'
 #' Downloading large amounts of data may be slow, so this function prints
-#' messages for each day of data it downloads. To suppress these, use
+#' messages for each chunk of data it downloads. To suppress these, use
 #' [base::suppressMessages()], as in
 #' `suppressMessages(covidcast_signal("fb-survey", ...))`.
 #'
@@ -422,8 +425,7 @@ as.covidcast_signal.data.frame <- function(x,
 
   # Reorder data_source, signal, geo_value, time_value, so that they appear in
   # this order.
-  x <- dplyr::relocate(x, .data$data_source, .data$signal, .data$geo_value,
-                       .data$time_value)
+  x <- dplyr::relocate(x, "data_source", "signal", "geo_value", "time_value")
 
   attributes(x)$metadata <- metadata
 
@@ -499,11 +501,12 @@ summary.covidcast_signal <- function(object, ...) {
 #'
 #' @details The argument structure is just as in `covidcast_signal()`, except
 #'   the first four arguments `data_source`, `signal`, `start_day`, `end_day`
-#'   are permitted to be vectors. The first two arguments `data_source`,
-#'   '`signal` are
-#'   recycled appropriately, in the calls to `covidcast_signal()`; see example
-#'   below. The next two arguments `start_day`, `end_day`, unless `NULL`, must
-#'   be either length 1 or N.
+#'   are permitted to be vectors. The first two arguments `data_source` and
+#'   `signal` are recycled appropriately in the calls to `covidcast_signal()`;
+#'   see example below. The next two arguments `start_day`, `end_day`, unless
+#'   `NULL`, must be either length 1 or N.
+#'
+#' See `vignette("multi-signals")` for additional examples.
 #'
 #' @return A list of `covidcast_signal` data frames, of length `N =
 #'     max(length(data_source), length(signal))`. This list can be aggregated
@@ -612,9 +615,7 @@ covidcast_signals <- function(data_source, signal,
 #' @importFrom utils read.csv
 #' @export
 covidcast_meta <- function() {
-  meta <- .request(
-    list(source = "covidcast_meta",
-         format = "csv"))
+  meta <- .request("covidcast_meta", list(format = "csv"))
 
   if (nchar(meta) == 0) {
     abort("Failed to obtain metadata", class = "covidcast_meta_fetch_failed")
@@ -749,7 +750,7 @@ specific_meta <- function(data_source, signal, geo_type, time_type = "day") {
 # each batch and combines the resutls.
 covidcast_days <- function(data_source, signal, start_day, end_day, geo_type,
                            geo_value, time_type, as_of, issues, lag,
-                           max_geos = MAX_RESULTS) {
+                           max_geos) {
   days <- date_sequence(start_day, end_day, time_type)
   ndays <- length(days)
 
@@ -760,9 +761,11 @@ covidcast_days <- function(data_source, signal, start_day, end_day, geo_type,
     nissues <- 1
   }
 
+  max_results <- getOption("covidcast.max_results", default = MAX_RESULTS)
+
   # Theoretically, each geo_value could have data issued each day. Likely
   # overestimates when handling multiple issue dates, resulting in more batches.
-  max_days_at_time <- floor(MAX_RESULTS / (max_geos * nissues))
+  max_days_at_time <- floor(max_results / (max_geos * nissues))
 
   # In theory, we could exceed max rows with 1 day, but try anyway
   if (max_days_at_time == 0) {
@@ -779,7 +782,11 @@ covidcast_days <- function(data_source, signal, start_day, end_day, geo_type,
     query_start_day <- start_day + start_offset
     query_end_day <- start_day + end_offset
 
-    time_values <- days[(start_offset + 1):(end_offset + 1)]
+    # Expected number of unique dates fetched, to check against later
+    num_time_values <- length(days[(start_offset + 1):(end_offset + 1)])
+
+    # Use range calls where possible for speed.
+    time_values <- paste0(days[(start_offset + 1)], "-", days[(end_offset + 1)])
     response <- covidcast(data_source = data_source,
                           signal = signal,
                           time_type = time_type,
@@ -821,12 +828,12 @@ covidcast_days <- function(data_source, signal, start_day, end_day, geo_type,
       desired_geos <- tolower(unique(geo_value))
 
       returned_geo_array <- response %>%
-        dplyr::select(geo_value, .data$time_value) %>%
+        dplyr::select("geo_value", "time_value") %>%
         dplyr::group_by(.data$time_value) %>%
         dplyr::summarize(geo_value = list(geo_value))
       returned_time_values <- returned_geo_array$time_value
 
-      if (length(returned_time_values) != length(time_values)) {
+      if (length(returned_time_values) != num_time_values) {
         missing_time_values <- setdiff(time_values, returned_time_values)
         missing_dates <- api_to_date(missing_time_values, time_type)
 
@@ -915,7 +922,6 @@ covidcast <- function(data_source, signal, time_type, geo_type, time_values,
 
   # Set up request
   params <- list(
-    source = "covidcast",
     data_source = data_source,
     signal = signal,
     time_type = time_type,
@@ -953,7 +959,7 @@ covidcast <- function(data_source, signal, time_type, geo_type, time_values,
   # Make the API call. If the API returns a non-200 status code, indicating e.g.
   # a database error, .request() raises an error. It returns an empty string if
   # there are no results for our query.
-  response <- .request(params)
+  response <- .request("covidcast", params)
   if (nchar(response) == 0) {
     # empty if no results
     return(NULL)
@@ -984,16 +990,17 @@ covidcast <- function(data_source, signal, time_type, geo_type, time_values,
 }
 
 # Helper function to request and parse epidata
-.request <- function(params) {
+.request <- function(endpoint, params) {
   # API call. Allow base API URL to be replaced, e.g. to use a staging/testing
   # server when needed.
-  response <- httr::GET(
-    getOption("covidcast.base_url", default = COVIDCAST_BASE_URL),
-    httr::user_agent("covidcastR"), query = params)
-  if (httr::status_code(response) == 414){
-    response <- httr::POST(getOption("covidcast.base_url",
-                           default = COVIDCAST_BASE_URL),
-                           httr::user_agent("covidcastR"),
+  url <- paste0(getOption("covidcast.base_url", default = COVIDCAST_BASE_URL),
+                endpoint, "/")
+  response <- httr::GET(url, httr::user_agent("covidcastR"), query = params)
+
+  # Query URL can be too long if lots of time values or geo values are involved;
+  # switch to POST
+  if (httr::status_code(response) == 414) {
+    response <- httr::POST(url, httr::user_agent("covidcastR"),
                            body = params)
   }
 
