@@ -1,8 +1,8 @@
 Package: covidcast
 Type: Package
 Title: Client for Delphi's 'COVIDcast Epidata' API
-Version: 0.4.3
-Date: 2022-10-05
+Version: 0.4.5
+Date: 2023-01-03
 Authors@R: 
   c(
     person(given = "Taylor",
@@ -51,13 +51,13 @@ Encoding: UTF-8
 LazyData: true
 Imports: dplyr, ggplot2, grDevices, httr, MMWRweek, purrr, rlang, sf,
         tidyr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: gridExtra, httptest, knitr, mockery, rmarkdown, testthat,
         tibble, vdiffr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2022-10-05 19:03:24 UTC; alexreinhart
+Packaged: 2023-01-03 18:04:24 UTC; alexreinhart
 Author: Taylor Arnold [aut],
   Jacob Bien [aut],
   Logan Brooks [aut],
@@ -69,4 +69,4 @@ Author: Taylor Arnold [aut],
   Ryan Tibshirani [aut]
 Maintainer: Alex Reinhart <areinhar@stat.cmu.edu>
 Repository: CRAN
-Date/Publication: 2022-10-06 20:50:02 UTC
+Date/Publication: 2023-01-07 14:20:12 UTC

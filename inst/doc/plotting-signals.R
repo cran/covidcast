@@ -12,7 +12,7 @@ inum <- covidcast_signal(data_source = "usa-facts",
 summary(inum)
 
 ## ---- include = FALSE---------------------------------------------------------
-knitr::opts_chunk$set(fig.width = 10, fig.height = 8)
+knitr::opts_chunk$set(fig.width = 6, fig.height = 4)
 
 ## -----------------------------------------------------------------------------
 plot(comb)
@@ -52,15 +52,12 @@ plot(inum, plot_type = "bubble")
 plot(inum, plot_type = "bubble",
      bubble_params = list(breaks = seq(20, 200, len = 6)))
 
-## ---- include = FALSE---------------------------------------------------------
-knitr::opts_chunk$set(fig.width = 10, fig.height = 6)
-
 ## ---- message=FALSE-----------------------------------------------------------
 iprop <- covidcast_signal(data_source = "usa-facts",
                           signal = "confirmed_7dav_incidence_prop",
                           start_day = "2020-07-01", end_day = "2020-07-14")
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=8, fig.height=4, message=FALSE--------------------------------
 library(gridExtra)
 
 breaks1 <- c(1, 10, 100, 1000)
@@ -76,9 +73,6 @@ p2 <- plot(iprop, plot_type = "bubble",
            title = paste("Incidence rate on", max(iprop$time_value)))
 
 grid.arrange(p1, p2, nrow = 1)
-
-## ---- include = FALSE---------------------------------------------------------
-knitr::opts_chunk$set(fig.width = 8, fig.height = 6)
 
 ## ---- message=FALSE-----------------------------------------------------------
 comb_st <- covidcast_signal(data_source = "indicator-combination",

@@ -108,13 +108,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -691,14 +698,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">county</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
-<td align="right">3116</td>
+<td align="left">2022-12-23</td>
+<td align="right">3118</td>
 <td align="right">0.0009331</td>
 <td align="right">99.92012</td>
-<td align="right">2.421606</td>
-<td align="right">4.035473</td>
-<td align="right">1664940819</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.293857</td>
+<td align="right">3.918832</td>
+<td align="right">1672284058</td>
+<td align="left">2022-12-28</td>
 <td align="right">3</td>
 <td align="right">674</td>
 </tr>
@@ -708,14 +715,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">hhs</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
+<td align="left">2022-12-23</td>
 <td align="right">10</td>
 <td align="right">0.0061953</td>
 <td align="right">20.77577</td>
-<td align="right">2.887640</td>
-<td align="right">2.633886</td>
-<td align="right">1664940844</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.729481</td>
+<td align="right">2.585577</td>
+<td align="right">1672284061</td>
+<td align="left">2022-12-28</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -725,14 +732,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">hrr</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
+<td align="left">2022-12-28</td>
 <td align="right">306</td>
 <td align="right">0.0010292</td>
 <td align="right">50.81590</td>
-<td align="right">2.681294</td>
-<td align="right">2.917218</td>
-<td align="right">1664940844</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.527911</td>
+<td align="right">2.842323</td>
+<td align="right">1672714398</td>
+<td align="left">2023-01-02</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -742,14 +749,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">msa</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
+<td align="left">2022-12-28</td>
 <td align="right">392</td>
 <td align="right">0.0007662</td>
 <td align="right">99.99898</td>
-<td align="right">2.455707</td>
-<td align="right">3.198792</td>
-<td align="right">1664940848</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.312175</td>
+<td align="right">3.103742</td>
+<td align="right">1672714398</td>
+<td align="left">2023-01-02</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -759,14 +766,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">nation</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
+<td align="left">2022-12-23</td>
 <td align="right">1</td>
 <td align="right">0.0154639</td>
 <td align="right">12.08697</td>
-<td align="right">3.168547</td>
-<td align="right">2.393015</td>
-<td align="right">1664940853</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.994687</td>
+<td align="right">2.368953</td>
+<td align="right">1672284062</td>
+<td align="left">2022-12-28</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -776,14 +783,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">state</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-09-29</td>
+<td align="left">2022-12-28</td>
 <td align="right">55</td>
 <td align="right">0.0013343</td>
 <td align="right">33.23859</td>
-<td align="right">2.586233</td>
-<td align="right">2.696715</td>
-<td align="right">1664940853</td>
-<td align="left">2022-10-04</td>
+<td align="right">2.435422</td>
+<td align="right">2.630714</td>
+<td align="right">1672714399</td>
+<td align="left">2023-01-02</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
