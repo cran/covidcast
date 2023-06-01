@@ -9,6 +9,7 @@ vignette: >
 ---
 
 This package provides access to data frames of values from the [COVIDcast
+endpoint of the Epidata
 API](https://cmu-delphi.github.io/delphi-epidata/api/covidcast.html). Using the
 `covidcast_signal()` function, you can fetch any data you may be interested in
 analyzing, then use `plot.covidcast_signal()` to make plots and maps. Since the
@@ -79,6 +80,16 @@ cli <- covidcast_signal(data_source = "fb-survey", signal = "smoothed_cli",
 knitr::kable(head(cli))
 ```
 
+### API keys
+
+By default, this package submits queries to the API anonymously. All the
+examples in the package documentation are compatible with anonymous use of the
+API, but [there are some limits on anonymous
+queries](https://cmu-delphi.github.io/delphi-epidata/api/api_keys.html),
+including rate limits on the number of queries that can be submitted per hour.
+To lift these limits, see the "API keys" section of the `covidcast_signal()`
+documentation for information on how to register for and use an API key.
+
 ### Plotting and mapping
 
 This package provides convenient functions for plotting and mapping these
@@ -96,10 +107,10 @@ For more details and examples, including choropleth and bubble maps, see
 ### Finding signals of interest
 
 Above we used data from [Delphi's symptom
-surveys](https://delphi.cmu.edu/covidcast/surveys/), but the COVIDcast API
-includes numerous data streams: medical claims data, cases and deaths, mobility,
-and many others; new signals are added regularly. This can make it a challenge
-to find the data stream that you are most interested in.
+surveys](https://delphi.cmu.edu/covid19/ctis/), but the COVIDcast API includes
+numerous data streams: medical claims data, cases and deaths, mobility, and many
+others; new signals are added regularly. This can make it a challenge to find
+the data stream that you are most interested in.
 
 The [COVIDcast Data Sources and Signals
 documentation](https://cmu-delphi.github.io/delphi-epidata/api/covidcast_signals.html)

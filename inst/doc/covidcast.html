@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>This package provides access to data frames of values from the <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast.html">COVIDcast API</a>. Using the <code>covidcast_signal()</code> function, you can fetch any data you may be interested in analyzing, then use <code>plot.covidcast_signal()</code> to make plots and maps. Since the data is provided as a simple data frame, you can also wrangle it into whatever form you need to conduct your desired analyses using other packages and functions.</p>
+<p>This package provides access to data frames of values from the <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast.html">COVIDcast endpoint of the Epidata API</a>. Using the <code>covidcast_signal()</code> function, you can fetch any data you may be interested in analyzing, then use <code>plot.covidcast_signal()</code> to make plots and maps. Since the data is provided as a simple data frame, you can also wrangle it into whatever form you need to conduct your desired analyses using other packages and functions.</p>
 <div id="installing" class="section level2">
 <h2>Installing</h2>
 <p>This package is <a href="https://cran.r-project.org/package=covidcast">available on CRAN</a>, so the easiest way to install it is simply</p>
@@ -613,6 +613,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
+<div id="api-keys" class="section level3">
+<h3>API keys</h3>
+<p>By default, this package submits queries to the API anonymously. All the examples in the package documentation are compatible with anonymous use of the API, but <a href="https://cmu-delphi.github.io/delphi-epidata/api/api_keys.html">there are some limits on anonymous queries</a>, including rate limits on the number of queries that can be submitted per hour. To lift these limits, see the “API keys” section of the <code>covidcast_signal()</code> documentation for information on how to register for and use an API key.</p>
+</div>
 <div id="plotting-and-mapping" class="section level3">
 <h3>Plotting and mapping</h3>
 <p>This package provides convenient functions for plotting and mapping these signals. For example, simple line charts are easy to construct:</p>
@@ -623,7 +627,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="finding-signals-of-interest" class="section level3">
 <h3>Finding signals of interest</h3>
-<p>Above we used data from <a href="https://delphi.cmu.edu/covidcast/surveys/">Delphi’s symptom surveys</a>, but the COVIDcast API includes numerous data streams: medical claims data, cases and deaths, mobility, and many others; new signals are added regularly. This can make it a challenge to find the data stream that you are most interested in.</p>
+<p>Above we used data from <a href="https://delphi.cmu.edu/covid19/ctis/">Delphi’s symptom surveys</a>, but the COVIDcast API includes numerous data streams: medical claims data, cases and deaths, mobility, and many others; new signals are added regularly. This can make it a challenge to find the data stream that you are most interested in.</p>
 <p>The <a href="https://cmu-delphi.github.io/delphi-epidata/api/covidcast_signals.html">COVIDcast Data Sources and Signals documentation</a> lists all data sources and signals available through COVIDcast. When you find a signal of interest, get the data source name (such as <code>jhu-csse</code> or <code>fb-survey</code>) and the signal name (such as <code>confirmed_incidence_num</code> or <code>smoothed_wcli</code>). These are provided as arguments to <code>covidcast_signal()</code> to request the data you want.</p>
 </div>
 <div id="finding-counties-and-metro-areas" class="section level3">
@@ -698,14 +702,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">county</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-23</td>
+<td align="left">2023-02-14</td>
 <td align="right">3118</td>
 <td align="right">0.0009331</td>
 <td align="right">99.92012</td>
-<td align="right">2.293857</td>
-<td align="right">3.918832</td>
-<td align="right">1672284058</td>
-<td align="left">2022-12-28</td>
+<td align="right">2.227852</td>
+<td align="right">3.843579</td>
+<td align="right">1683566979</td>
+<td align="left">2023-02-19</td>
 <td align="right">3</td>
 <td align="right">674</td>
 </tr>
@@ -715,14 +719,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">hhs</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-23</td>
+<td align="left">2023-02-14</td>
 <td align="right">10</td>
 <td align="right">0.0061953</td>
 <td align="right">20.77577</td>
-<td align="right">2.729481</td>
-<td align="right">2.585577</td>
-<td align="right">1672284061</td>
-<td align="left">2022-12-28</td>
+<td align="right">2.650523</td>
+<td align="right">2.551447</td>
+<td align="right">1683567539</td>
+<td align="left">2023-02-19</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -732,14 +736,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">hrr</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-28</td>
+<td align="left">2023-02-14</td>
 <td align="right">306</td>
 <td align="right">0.0010292</td>
 <td align="right">50.81590</td>
-<td align="right">2.527911</td>
-<td align="right">2.842323</td>
-<td align="right">1672714398</td>
-<td align="left">2023-01-02</td>
+<td align="right">2.459893</td>
+<td align="right">2.801520</td>
+<td align="right">1683567541</td>
+<td align="left">2023-02-19</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -749,14 +753,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">msa</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-28</td>
+<td align="left">2023-02-14</td>
 <td align="right">392</td>
 <td align="right">0.0007662</td>
 <td align="right">99.99898</td>
-<td align="right">2.312175</td>
-<td align="right">3.103742</td>
-<td align="right">1672714398</td>
-<td align="left">2023-01-02</td>
+<td align="right">2.249447</td>
+<td align="right">3.051818</td>
+<td align="right">1683567601</td>
+<td align="left">2023-02-19</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -766,14 +770,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">nation</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-23</td>
+<td align="left">2023-02-14</td>
 <td align="right">1</td>
 <td align="right">0.0154639</td>
 <td align="right">12.08697</td>
-<td align="right">2.994687</td>
-<td align="right">2.368953</td>
-<td align="right">1672284062</td>
-<td align="left">2022-12-28</td>
+<td align="right">2.911151</td>
+<td align="right">2.342557</td>
+<td align="right">1683567663</td>
+<td align="left">2023-02-19</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
@@ -783,14 +787,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">day</td>
 <td align="left">state</td>
 <td align="left">2020-02-01</td>
-<td align="left">2022-12-28</td>
+<td align="left">2023-02-14</td>
 <td align="right">55</td>
 <td align="right">0.0013343</td>
 <td align="right">33.23859</td>
-<td align="right">2.435422</td>
-<td align="right">2.630714</td>
-<td align="right">1672714399</td>
-<td align="left">2023-01-02</td>
+<td align="right">2.367458</td>
+<td align="right">2.594744</td>
+<td align="right">1683567664</td>
+<td align="left">2023-02-19</td>
 <td align="right">5</td>
 <td align="right">674</td>
 </tr>
