@@ -158,17 +158,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>start_day <span class="ot">&lt;-</span> <span class="st">&quot;2020-06-01&quot;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>end_day <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-01&quot;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>signals <span class="ot">&lt;-</span> <span class="fu">covidcast_signals</span>(<span class="at">data_source =</span> <span class="st">&quot;usa-facts&quot;</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">signal =</span> <span class="fu">c</span>(<span class="st">&quot;confirmed_incidence_num&quot;</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;deaths_incidence_num&quot;</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>signals <span class="ot">&lt;-</span> <span class="fu">covidcast_signals</span>(<span class="at">data_source =</span> <span class="st">&quot;jhu-csse&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">signal =</span> <span class="fu">c</span>(<span class="st">&quot;confirmed_7dav_incidence_prop&quot;</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;deaths_7dav_incidence_prop&quot;</span>),</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">start_day =</span> start_day, <span class="at">end_day =</span> end_day,</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">geo_type =</span> <span class="st">&quot;state&quot;</span>, <span class="at">geo_values =</span> <span class="st">&quot;tx&quot;</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(signals[[<span class="dv">1</span>]])</span></code></pre></div>
 <pre><code>## A `covidcast_signal` dataframe with 123 rows and 15 columns.
 ## 
-## data_source : usa-facts
-## signal      : confirmed_incidence_num
+## data_source : jhu-csse
+## signal      : confirmed_7dav_incidence_prop
 ## geo_type    : state
 ## 
 ## first date                          : 2020-06-01
@@ -177,8 +177,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(signals[[<span class="dv">2</span>]])</span></code></pre></div>
 <pre><code>## A `covidcast_signal` dataframe with 123 rows and 15 columns.
 ## 
-## data_source : usa-facts
-## signal      : deaths_incidence_num
+## data_source : jhu-csse
+## signal      : deaths_7dav_incidence_prop
 ## geo_type    : state
 ## 
 ## first date                          : 2020-06-01
@@ -192,190 +192,204 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   geo_value time_value value+0:usa-facts_confirmed_incidence_num
-## 1        tx 2020-06-01                                       593
-## 2        tx 2020-06-02                                      1688
-## 3        tx 2020-06-03                                      1703
-## 4        tx 2020-06-04                                      1649
-## 5        tx 2020-06-05                                      1693
-## 6        tx 2020-06-06                                      1940
-##   value+0:usa-facts_deaths_incidence_num
-## 1                                     20
-## 2                                     28
-## 3                                     31
-## 4                                     21
-## 5                                     25
-## 6                                     34</code></pre>
+<pre><code>##   geo_value time_value value+0:jhu-csse_confirmed_7dav_incidence_prop
+## 1        tx 2020-06-01                                       3.393256
+## 2        tx 2020-06-02                                       3.644320
+## 3        tx 2020-06-03                                       3.723629
+## 4        tx 2020-06-04                                       6.985028
+## 5        tx 2020-06-05                                       7.920192
+## 6        tx 2020-06-06                                       8.034533
+##   value+0:jhu-csse_deaths_7dav_incidence_prop
+## 1                                   0.0856342
+## 2                                   0.0953654
+## 3                                   0.0909864
+## 4                                   0.0977982
+## 5                                   0.1002310
+## 6                                   0.0909864</code></pre>
 <p>In “wide” format, only the latest issue of data is retained, and the columns <code>data_source</code>, <code>signal</code>, <code>issue</code>, <code>lag</code>, <code>stderr</code>, <code>sample_size</code> are all dropped from the returned data frame. Each unique signal—defined by a combination of data source name, signal name, and time-shift—is given its own column, whose name indicates its defining quantities.</p>
 <p>As hinted above, <code>aggregate_signals()</code> can also apply time-shifts to the given signals, through the optional <code>dt</code> argument. This can be either be a single vector of shifts or a list of vectors of shifts, this list having the same length as the list of <code>covidcast_signal</code> objects (to apply, respectively, the same shifts or a different set of shifts to each <code>covidcast_signal</code> object). Negative shifts translate into in a <em>lag</em> value and positive shifts into a <em>lead</em> value; for example, if <code>dt = -1</code>, then the value on June 2 that gets reported is the original value on June 1; if <code>dt = 0</code>, then the values are left as is.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   geo_value time_value value-1:usa-facts_confirmed_incidence_num
-## 1        tx 2020-06-01                                        NA
-## 2        tx 2020-06-02                                       593
-## 3        tx 2020-06-03                                      1688
-## 4        tx 2020-06-04                                      1703
-## 5        tx 2020-06-05                                      1649
-## 6        tx 2020-06-06                                      1693
-##   value+0:usa-facts_confirmed_incidence_num
-## 1                                       593
-## 2                                      1688
-## 3                                      1703
-## 4                                      1649
-## 5                                      1693
-## 6                                      1940
-##   value-1:usa-facts_deaths_incidence_num value+0:usa-facts_deaths_incidence_num
-## 1                                     NA                                     20
-## 2                                     20                                     28
-## 3                                     28                                     31
-## 4                                     31                                     21
-## 5                                     21                                     25
-## 6                                     25                                     34</code></pre>
+<pre><code>##   geo_value time_value value-1:jhu-csse_confirmed_7dav_incidence_prop
+## 1        tx 2020-06-01                                             NA
+## 2        tx 2020-06-02                                       3.393256
+## 3        tx 2020-06-03                                       3.644320
+## 4        tx 2020-06-04                                       3.723629
+## 5        tx 2020-06-05                                       6.985028
+## 6        tx 2020-06-06                                       7.920192
+##   value+0:jhu-csse_confirmed_7dav_incidence_prop
+## 1                                       3.393256
+## 2                                       3.644320
+## 3                                       3.723629
+## 4                                       6.985028
+## 5                                       7.920192
+## 6                                       8.034533
+##   value-1:jhu-csse_deaths_7dav_incidence_prop
+## 1                                          NA
+## 2                                   0.0856342
+## 3                                   0.0953654
+## 4                                   0.0909864
+## 5                                   0.0977982
+## 6                                   0.1002310
+##   value+0:jhu-csse_deaths_7dav_incidence_prop
+## 1                                   0.0856342
+## 2                                   0.0953654
+## 3                                   0.0909864
+## 4                                   0.0977982
+## 5                                   0.1002310
+## 6                                   0.0909864</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   geo_value time_value value+0:usa-facts_confirmed_incidence_num
-## 1        tx 2020-06-01                                       593
-## 2        tx 2020-06-02                                      1688
-## 3        tx 2020-06-03                                      1703
-## 4        tx 2020-06-04                                      1649
-## 5        tx 2020-06-05                                      1693
-## 6        tx 2020-06-06                                      1940
-##   value-1:usa-facts_deaths_incidence_num value+0:usa-facts_deaths_incidence_num
-## 1                                     NA                                     20
-## 2                                     20                                     28
-## 3                                     28                                     31
-## 4                                     31                                     21
-## 5                                     21                                     25
-## 6                                     25                                     34
-##   value+1:usa-facts_deaths_incidence_num
-## 1                                     28
-## 2                                     31
-## 3                                     21
-## 4                                     25
-## 5                                     34
-## 6                                     18</code></pre>
+<pre><code>##   geo_value time_value value+0:jhu-csse_confirmed_7dav_incidence_prop
+## 1        tx 2020-06-01                                       3.393256
+## 2        tx 2020-06-02                                       3.644320
+## 3        tx 2020-06-03                                       3.723629
+## 4        tx 2020-06-04                                       6.985028
+## 5        tx 2020-06-05                                       7.920192
+## 6        tx 2020-06-06                                       8.034533
+##   value-1:jhu-csse_deaths_7dav_incidence_prop
+## 1                                          NA
+## 2                                   0.0856342
+## 3                                   0.0953654
+## 4                                   0.0909864
+## 5                                   0.0977982
+## 6                                   0.1002310
+##   value+0:jhu-csse_deaths_7dav_incidence_prop
+## 1                                   0.0856342
+## 2                                   0.0953654
+## 3                                   0.0909864
+## 4                                   0.0977982
+## 5                                   0.1002310
+## 6                                   0.0909864
+##   value+1:jhu-csse_deaths_7dav_incidence_prop
+## 1                                   0.0953654
+## 2                                   0.0909864
+## 3                                   0.0977982
+## 4                                   0.1002310
+## 5                                   0.0909864
+## 6                                   0.0885536</code></pre>
 <p>Finally, <code>aggregate_signals()</code> also accepts a single data frame (instead of a list of data frames), intended to be convenient when applying shifts to a single <code>covidcast_signal</code> object:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals[[<span class="dv">1</span>]], <span class="at">dt =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   geo_value time_value value-1:usa-facts_confirmed_incidence_num
-## 1        tx 2020-06-01                                        NA
-## 2        tx 2020-06-02                                       593
-## 3        tx 2020-06-03                                      1688
-## 4        tx 2020-06-04                                      1703
-## 5        tx 2020-06-05                                      1649
-## 6        tx 2020-06-06                                      1693
-##   value+0:usa-facts_confirmed_incidence_num
-## 1                                       593
-## 2                                      1688
-## 3                                      1703
-## 4                                      1649
-## 5                                      1693
-## 6                                      1940
-##   value+1:usa-facts_confirmed_incidence_num
-## 1                                      1688
-## 2                                      1703
-## 3                                      1649
-## 4                                      1693
-## 5                                      1940
-## 6                                      1425</code></pre>
+<pre><code>##   geo_value time_value value-1:jhu-csse_confirmed_7dav_incidence_prop
+## 1        tx 2020-06-01                                             NA
+## 2        tx 2020-06-02                                       3.393256
+## 3        tx 2020-06-03                                       3.644320
+## 4        tx 2020-06-04                                       3.723629
+## 5        tx 2020-06-05                                       6.985028
+## 6        tx 2020-06-06                                       7.920192
+##   value+0:jhu-csse_confirmed_7dav_incidence_prop
+## 1                                       3.393256
+## 2                                       3.644320
+## 3                                       3.723629
+## 4                                       6.985028
+## 5                                       7.920192
+## 6                                       8.034533
+##   value+1:jhu-csse_confirmed_7dav_incidence_prop
+## 1                                       3.644320
+## 2                                       3.723629
+## 3                                       6.985028
+## 4                                       7.920192
+## 5                                       8.034533
+## 6                                       7.957171</code></pre>
 </div>
 <div id="aggregating-signals-long-format" class="section level2">
 <h2>Aggregating signals, long format</h2>
 <p>We can also use <code>aggregate_signals()</code> in “long” format, with one observation per row:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">format =</span> <span class="st">&quot;long&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   data_source                  signal geo_value time_value    source geo_type
-## 1   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 2   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 3   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-## 4   usa-facts confirmed_incidence_num        tx 2020-06-04 usa-facts    state
-## 5   usa-facts confirmed_incidence_num        tx 2020-06-05 usa-facts    state
-## 6   usa-facts confirmed_incidence_num        tx 2020-06-06 usa-facts    state
-##   time_type      issue lag missing_value missing_stderr missing_sample_size
-## 1       day 2021-10-20 506             0              5                   5
-## 2       day 2021-10-20 505             0              5                   5
-## 3       day 2021-10-20 504             0              5                   5
-## 4       day 2021-10-20 503             0              5                   5
-## 5       day 2021-10-20 502             0              5                   5
-## 6       day 2021-10-20 501             0              5                   5
-##   stderr sample_size dt value
-## 1     NA          NA  0   593
-## 2     NA          NA  0  1688
-## 3     NA          NA  0  1703
-## 4     NA          NA  0  1649
-## 5     NA          NA  0  1693
-## 6     NA          NA  0  1940</code></pre>
+<pre><code>##   data_source                        signal geo_value time_value   source
+## 1    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 2    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 3    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+## 4    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-04 jhu-csse
+## 5    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-05 jhu-csse
+## 6    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-06 jhu-csse
+##   geo_type time_type      issue  lag missing_value missing_stderr
+## 1    state       day 2023-03-03 1005             0              5
+## 2    state       day 2023-03-03 1004             0              5
+## 3    state       day 2023-03-03 1003             0              5
+## 4    state       day 2023-03-03 1002             0              5
+## 5    state       day 2023-03-03 1001             0              5
+## 6    state       day 2023-03-03 1000             0              5
+##   missing_sample_size stderr sample_size dt    value
+## 1                   5     NA          NA  0 3.393256
+## 2                   5     NA          NA  0 3.644320
+## 3                   5     NA          NA  0 3.723629
+## 4                   5     NA          NA  0 6.985028
+## 5                   5     NA          NA  0 7.920192
+## 6                   5     NA          NA  0 8.034533</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">format =</span> <span class="st">&quot;long&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   data_source                  signal geo_value time_value    source geo_type
-## 1   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 2   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 3   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 4   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 5   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-## 6   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-##   time_type      issue lag missing_value missing_stderr missing_sample_size
-## 1       day 2021-10-20 506             0              5                   5
-## 2       day 2021-10-20 506             0              5                   5
-## 3       day 2021-10-20 505             0              5                   5
-## 4       day 2021-10-20 505             0              5                   5
-## 5       day 2021-10-20 504             0              5                   5
-## 6       day 2021-10-20 504             0              5                   5
-##   stderr sample_size dt value
-## 1     NA          NA -1    NA
-## 2     NA          NA  0   593
-## 3     NA          NA -1   593
-## 4     NA          NA  0  1688
-## 5     NA          NA -1  1688
-## 6     NA          NA  0  1703</code></pre>
+<pre><code>##   data_source                        signal geo_value time_value   source
+## 1    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 2    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 3    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 4    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 5    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+## 6    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+##   geo_type time_type      issue  lag missing_value missing_stderr
+## 1    state       day 2023-03-03 1005             0              5
+## 2    state       day 2023-03-03 1005             0              5
+## 3    state       day 2023-03-03 1004             0              5
+## 4    state       day 2023-03-03 1004             0              5
+## 5    state       day 2023-03-03 1003             0              5
+## 6    state       day 2023-03-03 1003             0              5
+##   missing_sample_size stderr sample_size dt    value
+## 1                   5     NA          NA -1       NA
+## 2                   5     NA          NA  0 3.393256
+## 3                   5     NA          NA -1 3.393256
+## 4                   5     NA          NA  0 3.644320
+## 5                   5     NA          NA -1 3.644320
+## 6                   5     NA          NA  0 3.723629</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">format =</span> <span class="st">&quot;long&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   data_source                  signal geo_value time_value    source geo_type
-## 1   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 2   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 3   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-## 4   usa-facts confirmed_incidence_num        tx 2020-06-04 usa-facts    state
-## 5   usa-facts confirmed_incidence_num        tx 2020-06-05 usa-facts    state
-## 6   usa-facts confirmed_incidence_num        tx 2020-06-06 usa-facts    state
-##   time_type      issue lag missing_value missing_stderr missing_sample_size
-## 1       day 2021-10-20 506             0              5                   5
-## 2       day 2021-10-20 505             0              5                   5
-## 3       day 2021-10-20 504             0              5                   5
-## 4       day 2021-10-20 503             0              5                   5
-## 5       day 2021-10-20 502             0              5                   5
-## 6       day 2021-10-20 501             0              5                   5
-##   stderr sample_size dt value
-## 1     NA          NA -1    NA
-## 2     NA          NA -1   593
-## 3     NA          NA -1  1688
-## 4     NA          NA -1  1703
-## 5     NA          NA -1  1649
-## 6     NA          NA -1  1693</code></pre>
+<pre><code>##   data_source                        signal geo_value time_value   source
+## 1    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 2    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 3    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+## 4    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-04 jhu-csse
+## 5    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-05 jhu-csse
+## 6    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-06 jhu-csse
+##   geo_type time_type      issue  lag missing_value missing_stderr
+## 1    state       day 2023-03-03 1005             0              5
+## 2    state       day 2023-03-03 1004             0              5
+## 3    state       day 2023-03-03 1003             0              5
+## 4    state       day 2023-03-03 1002             0              5
+## 5    state       day 2023-03-03 1001             0              5
+## 6    state       day 2023-03-03 1000             0              5
+##   missing_sample_size stderr sample_size dt    value
+## 1                   5     NA          NA -1       NA
+## 2                   5     NA          NA -1 3.393256
+## 3                   5     NA          NA -1 3.644320
+## 4                   5     NA          NA -1 3.723629
+## 5                   5     NA          NA -1 6.985028
+## 6                   5     NA          NA -1 7.920192</code></pre>
 <p>As we can see, time-shifts work just as before, in “wide” format. However, in “long” format, all columns are retained, and an additional <code>dt</code> column is added to record the time-shift being used.</p>
 <p>Just as before, <code>covidcast_signals()</code> can also operate on a single data frame, to conveniently apply shifts, in “long” format:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals[[<span class="dv">1</span>]], <span class="at">dt =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">format =</span> <span class="st">&quot;long&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   data_source                  signal geo_value time_value    source geo_type
-## 1   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 2   usa-facts confirmed_incidence_num        tx 2020-06-01 usa-facts    state
-## 3   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 4   usa-facts confirmed_incidence_num        tx 2020-06-02 usa-facts    state
-## 5   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-## 6   usa-facts confirmed_incidence_num        tx 2020-06-03 usa-facts    state
-##   time_type      issue lag missing_value missing_stderr missing_sample_size
-## 1       day 2021-10-20 506             0              5                   5
-## 2       day 2021-10-20 506             0              5                   5
-## 3       day 2021-10-20 505             0              5                   5
-## 4       day 2021-10-20 505             0              5                   5
-## 5       day 2021-10-20 504             0              5                   5
-## 6       day 2021-10-20 504             0              5                   5
-##   stderr sample_size dt value
-## 1     NA          NA -1    NA
-## 2     NA          NA  0   593
-## 3     NA          NA -1   593
-## 4     NA          NA  0  1688
-## 5     NA          NA -1  1688
-## 6     NA          NA  0  1703</code></pre>
+<pre><code>##   data_source                        signal geo_value time_value   source
+## 1    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 2    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 jhu-csse
+## 3    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 4    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 jhu-csse
+## 5    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+## 6    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 jhu-csse
+##   geo_type time_type      issue  lag missing_value missing_stderr
+## 1    state       day 2023-03-03 1005             0              5
+## 2    state       day 2023-03-03 1005             0              5
+## 3    state       day 2023-03-03 1004             0              5
+## 4    state       day 2023-03-03 1004             0              5
+## 5    state       day 2023-03-03 1003             0              5
+## 6    state       day 2023-03-03 1003             0              5
+##   missing_sample_size stderr sample_size dt    value
+## 1                   5     NA          NA -1       NA
+## 2                   5     NA          NA  0 3.393256
+## 3                   5     NA          NA -1 3.393256
+## 4                   5     NA          NA  0 3.644320
+## 5                   5     NA          NA -1 3.644320
+## 6                   5     NA          NA  0 3.723629</code></pre>
 </div>
 <div id="pivoting-longer-or-wider" class="section level2">
 <h2>Pivoting longer or wider</h2>
@@ -383,31 +397,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">covidcast_longer</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   data_source                  signal geo_value time_value dt value
-## 1   usa-facts confirmed_incidence_num        tx 2020-06-01 -1    NA
-## 2   usa-facts    deaths_incidence_num        tx 2020-06-01  0    20
-## 3   usa-facts confirmed_incidence_num        tx 2020-06-02 -1   593
-## 4   usa-facts    deaths_incidence_num        tx 2020-06-02  0    28
-## 5   usa-facts confirmed_incidence_num        tx 2020-06-03 -1  1688
-## 6   usa-facts    deaths_incidence_num        tx 2020-06-03  0    31</code></pre>
+<pre><code>##   data_source                        signal geo_value time_value dt     value
+## 1    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-01 -1        NA
+## 2    jhu-csse    deaths_7dav_incidence_prop        tx 2020-06-01  0 0.0856342
+## 3    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-02 -1 3.3932560
+## 4    jhu-csse    deaths_7dav_incidence_prop        tx 2020-06-02  0 0.0953654
+## 5    jhu-csse confirmed_7dav_incidence_prop        tx 2020-06-03 -1 3.6443200
+## 6    jhu-csse    deaths_7dav_incidence_prop        tx 2020-06-03  0 0.0909864</code></pre>
 <p>And to pivot wider:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate_signals</span>(signals, <span class="at">dt =</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">format =</span> <span class="st">&quot;long&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">covidcast_wider</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   geo_value time_value value-1:usa-facts_confirmed_incidence_num
-## 1        tx 2020-06-01                                        NA
-## 2        tx 2020-06-02                                       593
-## 3        tx 2020-06-03                                      1688
-## 4        tx 2020-06-04                                      1703
-## 5        tx 2020-06-05                                      1649
-## 6        tx 2020-06-06                                      1693
-##   value+0:usa-facts_deaths_incidence_num
-## 1                                     20
-## 2                                     28
-## 3                                     31
-## 4                                     21
-## 5                                     25
-## 6                                     34</code></pre>
+<pre><code>##   geo_value time_value value-1:jhu-csse_confirmed_7dav_incidence_prop
+## 1        tx 2020-06-01                                             NA
+## 2        tx 2020-06-02                                       3.393256
+## 3        tx 2020-06-03                                       3.644320
+## 4        tx 2020-06-04                                       3.723629
+## 5        tx 2020-06-05                                       6.985028
+## 6        tx 2020-06-06                                       7.920192
+##   value+0:jhu-csse_deaths_7dav_incidence_prop
+## 1                                   0.0856342
+## 2                                   0.0953654
+## 3                                   0.0909864
+## 4                                   0.0977982
+## 5                                   0.1002310
+## 6                                   0.0909864</code></pre>
 </div>
 <div id="a-sanity-check" class="section level2">
 <h2>A sanity check</h2>

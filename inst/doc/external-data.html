@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">ak</td>
 <td align="left">2020-10-31</td>
 <td align="right">7</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 <tr class="even">
 <td align="left">covid-tracking</td>
@@ -274,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">al</td>
 <td align="left">2020-10-31</td>
 <td align="right">0</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 <tr class="odd">
 <td align="left">covid-tracking</td>
@@ -282,7 +282,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">ar</td>
 <td align="left">2020-10-31</td>
 <td align="right">35</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 <tr class="even">
 <td align="left">covid-tracking</td>
@@ -290,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">as</td>
 <td align="left">2020-10-31</td>
 <td align="right">0</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 <tr class="odd">
 <td align="left">covid-tracking</td>
@@ -298,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">az</td>
 <td align="left">2020-10-31</td>
 <td align="right">68</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 <tr class="even">
 <td align="left">covid-tracking</td>
@@ -306,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">ca</td>
 <td align="left">2020-10-31</td>
 <td align="right">0</td>
-<td align="left">2023-06-01</td>
+<td align="left">2023-06-26</td>
 </tr>
 </tbody>
 </table>
@@ -319,25 +319,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="analysis-alongside-other-signals" class="section level2">
 <h2>Analysis alongside other signals</h2>
 <p>Now that our data is loaded as a <code>covidcast_signal</code> object, we can use it alongside other signals from the API. For example, let’s examine how new COVID hospitalizations correlate with outpatient doctor visits with deaths during October 2020, where we use death data as reported by the API.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>deaths <span class="ot">&lt;-</span> <span class="fu">covidcast_signal</span>(<span class="st">&quot;indicator-combination&quot;</span>, <span class="st">&quot;deaths_incidence_prop&quot;</span>,</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>deaths <span class="ot">&lt;-</span> <span class="fu">covidcast_signal</span>(<span class="st">&quot;jhu-csse&quot;</span>, <span class="st">&quot;deaths_7dav_incidence_prop&quot;</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">start_day =</span> <span class="st">&quot;2020-10-01&quot;</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">end_day =</span> <span class="st">&quot;2020-10-31&quot;</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">geo_type =</span> <span class="st">&quot;state&quot;</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">covidcast_cor</span>(deaths, hospitalized, <span class="at">by =</span> <span class="st">&quot;time_value&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 31 × 2
-##    time_value   value
-##    &lt;date&gt;       &lt;dbl&gt;
-##  1 2020-10-01  0.138 
-##  2 2020-10-02  0.246 
-##  3 2020-10-03  0.0697
-##  4 2020-10-04  0.210 
-##  5 2020-10-05 -0.0573
-##  6 2020-10-06  0.134 
-##  7 2020-10-07  0.0552
-##  8 2020-10-08  0.0561
-##  9 2020-10-09  0.0344
-## 10 2020-10-10  0.0905
+##    time_value  value
+##    &lt;date&gt;      &lt;dbl&gt;
+##  1 2020-10-01 0.218 
+##  2 2020-10-02 0.120 
+##  3 2020-10-03 0.147 
+##  4 2020-10-04 0.148 
+##  5 2020-10-05 0.0436
+##  6 2020-10-06 0.0706
+##  7 2020-10-07 0.123 
+##  8 2020-10-08 0.0300
+##  9 2020-10-09 0.0955
+## 10 2020-10-10 0.178 
 ## # ℹ 21 more rows</code></pre>
 <p>We can also use the tools provided by this package to place both signals into a single data frame for analysis. For example, to build a model that uses hospitalizations and other data to predict deaths, it may be convenient to produce a data frame where each row represents one state on one day, and each column is a variable (such as hospitalization or death). Using <code>aggregate_signals()</code>, this is easy:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>death_hosp <span class="ot">&lt;-</span> <span class="fu">aggregate_signals</span>(<span class="fu">list</span>(deaths, hospitalized),</span>
@@ -347,55 +347,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <colgroup>
-<col width="8%" />
 <col width="9%" />
-<col width="44%" />
-<col width="38%" />
+<col width="10%" />
+<col width="40%" />
+<col width="40%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">geo_value</th>
 <th align="left">time_value</th>
-<th align="right">value+0:indicator-combination_deaths_incidence_prop</th>
+<th align="right">value+0:jhu-csse_deaths_7dav_incidence_prop</th>
 <th align="right">value+0:covid-tracking_hospitalized_increase</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">al</td>
+<td align="left">ca</td>
 <td align="left">2020-10-01</td>
-<td align="right">0.0407898</td>
+<td align="right">0.2286116</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">ca</td>
-<td align="left">2020-10-01</td>
-<td align="right">0.2353702</td>
+<td align="left">2020-10-02</td>
+<td align="right">0.2137337</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="left">co</td>
-<td align="left">2020-10-01</td>
-<td align="right">0.0173649</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">fl</td>
-<td align="left">2020-10-01</td>
-<td align="right">0.5447501</td>
-<td align="right">213</td>
-</tr>
-<tr class="odd">
-<td align="left">il</td>
-<td align="left">2020-10-01</td>
-<td align="right">0.1815051</td>
+<td align="left">ca</td>
+<td align="left">2020-10-03</td>
+<td align="right">0.2122822</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="left">in</td>
-<td align="left">2020-10-01</td>
-<td align="right">0.1485394</td>
-<td align="right">97</td>
+<td align="left">ca</td>
+<td align="left">2020-10-04</td>
+<td align="right">0.2122822</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">ca</td>
+<td align="left">2020-10-05</td>
+<td align="right">0.2177254</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">ca</td>
+<td align="left">2020-10-06</td>
+<td align="right">0.1788977</td>
+<td align="right">0</td>
 </tr>
 </tbody>
 </table>
