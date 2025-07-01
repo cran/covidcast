@@ -1,8 +1,8 @@
 Package: covidcast
 Type: Package
 Title: Client for Delphi's 'COVIDcast Epidata' API
-Version: 0.5.2
-Date: 2023-07-11
+Version: 0.5.3
+Date: 2025-07-01
 Authors@R: 
   c(
     person(given = "Taylor",
@@ -48,19 +48,19 @@ Description: Tools for Delphi's 'COVIDcast Epidata' API: data access, maps and
     mobility data, typically updated daily and at the county level. All data
     sources are documented at
     <https://cmu-delphi.github.io/delphi-epidata/api/covidcast.html>.
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: dplyr, ggplot2, grDevices, httr, MMWRweek, purrr, rlang, sf,
         tidyr, xml2
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Suggests: gridExtra, httptest, knitr, mockery, rmarkdown, testthat,
         tibble, vdiffr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-07-11 18:21:00 UTC; alexreinhart
+Packaged: 2025-07-01 18:44:31 UTC; alexreinhart
 Author: Taylor Arnold [aut],
   Jacob Bien [aut],
   Logan Brooks [aut],
@@ -69,8 +69,9 @@ Author: Taylor Arnold [aut],
   Jed Grabman [ctb],
   Pedrito Maynard-Zhang [ctb],
   Kathryn Mazaitis [aut],
-  Alex Reinhart [aut, cre] (<https://orcid.org/0000-0002-6658-514X>),
+  Alex Reinhart [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-6658-514X>),
   Ryan Tibshirani [aut]
 Maintainer: Alex Reinhart <areinhar@stat.cmu.edu>
 Repository: CRAN
-Date/Publication: 2023-07-12 23:40:06 UTC
+Date/Publication: 2025-07-01 19:10:02 UTC

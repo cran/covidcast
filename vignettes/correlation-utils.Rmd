@@ -19,7 +19,7 @@ population, and restrict our analysis to counties with at least 500 total cases
 by August 15th.
 
 
-```r
+``` r
 library(covidcast)
 library(dplyr)
 
@@ -59,7 +59,7 @@ correlation between the signals over all geographic locations. This is obtained
 by setting `by = "time_value"`:
 
 
-```r
+``` r
 library(ggplot2)
 
 # Compute correlation per time, over all counties
@@ -97,7 +97,7 @@ might help to think of it this way: deaths on a certain day will be correlated
 with cases with an offset of -10 days.)
 
 
-```r
+``` r
 # Use Spearman correlation, with case rates and 10-day lagged case rates
 df_cor1 <- covidcast_cor(cases, deaths, by = "time_value",
                          method = "spearman")
@@ -131,7 +131,7 @@ is obtained by setting `by = "geo_value"`. We'll again look at correlations
 both for observations at the same time and for 10-day lagged case rates:
 
 
-```r
+``` r
 # Compute correlation per county, over all times
 df_cor1 <- covidcast_cor(cases, deaths, by = "geo_value")
 df_cor2 <- covidcast_cor(cases, deaths, by = "geo_value", dt_x = -10)
@@ -154,7 +154,7 @@ we can plot these correlations in space as a choropleth map, using
 `plot.covidcast_signal()`:
 
 
-```r
+``` r
 # Turn the data into a covidcast_signal data frame so it can be plotted
 df_cor2$time_value <- start_day
 df_cor2 <- as.covidcast_signal(df_cor2,
@@ -175,7 +175,7 @@ what lag one signal is most correlated with the other. A simple way to achieve
 this:
 
 
-```r
+``` r
 # Loop over values for dt, and compute correlations per county
 dt_vec <- -(0:15)
 df_list <- vector("list", length(dt_vec))
